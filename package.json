@@ -1,0 +1,15 @@
+{
+  "name": "xgettext-js",
+  "version": "0.1.0",
+  "author": "Andrew Duthie <andrew@andrewduthie.com>",
+  "description": "xgettext string extractor tool capable of parsing JavaScript files",
+  "main": "xgettext.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aduth/xgettext-js"
+  },
+  "dependencies": {
+    "acorn": "^0.6.0",
+    "lodash": "^2.4.1"
+  }
+}
