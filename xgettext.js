@@ -12,7 +12,7 @@ var _ = require( 'lodash' ),
  */
 var XGettext = module.exports = function( options ) {
 	if ( 'object' !== typeof options ) options = {};
-	this.options = _.extend( XGettext.defaultOptions, options );
+	this.options = _.extend( {}, XGettext.defaultOptions, options );
 	this.options.keywordFunctions = Object.keys( this.options.keywords );
 };
 
