@@ -6,7 +6,7 @@
   "main": "xgettext.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aduth/xgettext-js"
+    "url": "https://github.com/automattic/xgettext-js"
   },
   "dependencies": {
     "acorn": "^0.6.0",
