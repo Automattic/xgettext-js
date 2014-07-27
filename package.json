@@ -5,14 +5,28 @@
   "description": "xgettext string extractor tool capable of parsing JavaScript files",
   "main": "xgettext.js",
   "homepage": "https://github.com/automattic/xgettext-js",
-  "keywords": ["xgettext", "gettext", "i18n", "l10n", "internationalization", "localization"],
+  "license": "GPL-2.0+",
+  "keywords": [
+    "xgettext",
+    "gettext",
+    "i18n",
+    "l10n",
+    "internationalization",
+    "localization"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/automattic/xgettext-js"
+  },
+  "scripts": {
+    "test": "make test"
   },
   "dependencies": {
     "acorn": "^0.6.0",
     "lodash": "^2.4.1"
   },
-  "license": "GPL-2.0+"
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.21.1"
+  }
 }
