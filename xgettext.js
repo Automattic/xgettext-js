@@ -11,8 +11,9 @@ var _ = require( 'lodash' ),
  * @return {Array} An array of objects for all translatable strings discovered.
  */
 var XGettext = module.exports = function( options ) {
+	if ( 'object' !== typeof options ) options = {};
 	this.options = _.extend( XGettext.defaultOptions, options );
-	this.options.keywordFunctions = Object.keys( options.keywords );
+	this.options.keywordFunctions = Object.keys( this.options.keywords );
 };
 
 XGettext.defaultOptions = {
