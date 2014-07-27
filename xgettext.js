@@ -128,7 +128,7 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 
 	traverse( parsedInput.ast, {
 		CallExpression: function( node ) {
-			var functionName = node.callee.name;
+			var functionName = ( node.callee.property ) ? node.callee.property.name : node.callee.name;
 
 			// Validate is named function
 			if ( ! functionName ) return;
