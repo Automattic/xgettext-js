@@ -140,7 +140,8 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 			// Build discovered match
 			var match = {
 				arguments: node.arguments,
-				keyword: functionName
+				keyword: functionName,
+				line: node.loc.start.line
 			};
 
 			// Find translator comment
@@ -182,7 +183,7 @@ XGettext.prototype._transformMatch = function( match ) {
 
 	// Transform string back to object with comment
 	strings = _.map(strings, function( string ) {
-		var transformed = { string: string };
+		var transformed = { string: string, line: match.line };
 
 		if ( typeof match.comment !== 'undefined' ) {
 			transformed.comment = match.comment;

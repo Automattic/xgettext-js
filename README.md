@@ -15,7 +15,7 @@ $ npm install xgettext-js
 
 ## Usage
 
-An instance of xgettext-js exposes a `getMatches` method which, when passed a JavaScript source string, will return an array of translatable strings. Each item in the array is an object which includes a `string` property and any optionally included translator comments as the `comments` property. By default, xgettext-js will search for any occurrence of a `_` function within your JavaScript code and assume that a translatable string exists as the first parameter. Translator comments can exist on the same or previous code line, formatted as `translators: [insert comment here]` by default.
+An instance of xgettext-js exposes a `getMatches` method which, when passed a JavaScript source string, will return an array of translatable strings. Each item in the array is an object which includes a `string` property, the `line` of the matched string, and any optionally included translator comments as the `comments` property. By default, xgettext-js will search for any occurrence of a `_` function within your JavaScript code and assume that a translatable string exists as the first parameter. Translator comments can exist on the same or previous code line, formatted as `translators: [insert comment here]` by default.
 
 Below is an example of this simple use case in a Node.js application:
 
@@ -25,14 +25,14 @@ var XGettext = require( 'xgettext-js' ),
 	parser = new XGettext();
 
 console.log( parser.getMatches( source ) );
-// Will output: [ { "string": "Hello World!", "comment": "greeting" } ]
+// Will output: [ { "string": "Hello World!", "comment": "greeting", "line": 1 } ]
 ```
 
 ## Options
 
 To override the default behavior, you can pass an options object when creating an instance of xgettext-js, using one or more of the following options:
 
-- `keywords` : An object which defines keywords to be searched (the key) and a function (the value) which will return either a string replacement for the `string` value of the `getMatches` array return value, or a replacement for the object itself. The function is passed a match including three keys: `keyword` (the matched keyword), `arguments` (a CallExpression arguments array, [see parser documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API)), and `comment` if one exists.
+- `keywords` : An object which defines keywords to be searched (the key) and a function (the value) which will return either a string replacement for the `string` value of the `getMatches` array return value, or a replacement for the object itself. The function is passed a match including up to four keys: `keyword` (the matched keyword), `arguments` (a CallExpression arguments array, [see parser documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API)), `line` (the line of the matched string), and `comment` if one exists.
 - `commentPrefix`: The comment prefix string to match translator comments to be included with translatable strings. A comment will be matched if it is prefixed by this option. If undesired, setting the value to `undefined` will omit comments from the `getMatches` return value.
 
 ## License
