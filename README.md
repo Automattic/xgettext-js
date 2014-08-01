@@ -1,5 +1,8 @@
 # xgettext-js
 
+[![Build Status](https://travis-ci.org/Automattic/xgettext-js.svg)](https://travis-ci.org/Automattic/xgettext-js)
+[![NPM version](https://badge.fury.io/js/xgettext-js.svg)](http://badge.fury.io/js/xgettext-js)
+
 xgettext-js is a utility for extracting translatable strings, written in and capable of parsing JavaScript files. xgettext-js is intended to be comparable to the [GNU xgettext](http://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/xgettext-Invocation.html) program in purpose and scope. It makes use of [acorn.js](http://marijnhaverbeke.nl/acorn/) to parse JavaScript code, which facilitates the use of custom logic for string extraction. Because of this, xgettext-js is quite flexible, allowing you to define your own logic for extracting strings from any number of function keywords.
 
 ## Installation
