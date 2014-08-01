@@ -29,7 +29,7 @@ console.log( parser.getMatches( source ) );
 
 To override the default behavior, you can pass an options object when creating an instance of xgettext-js, using one or more of the following options:
 
-- `keywords` : An object which defines keywords to be searched (the key) and a function (the value) which will return the `getMatches` array return value (i.e. an object containing `string` and `comment`). The function is passed a match including three keys: `keyword` (the matched keyword), `arguments` (a CallExpression arguments array, [see parser documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API)), and `comment` if one exists.
+- `keywords` : An object which defines keywords to be searched (the key) and a function (the value) which will return either a string replacement for the `string` value of the `getMatches` array return value, or a replacement for the object itself. The function is passed a match including three keys: `keyword` (the matched keyword), `arguments` (a CallExpression arguments array, [see parser documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API)), and `comment` if one exists.
 - `commentPrefix`: The comment prefix string to match translator comments to be included with translatable strings. A comment will be matched if it is prefixed by this option. If undesired, setting the value to `undefined` will omit comments from the `getMatches` return value.
 
 ## License

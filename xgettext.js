@@ -169,6 +169,9 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 XGettext.prototype._transformMatch = function( match ) {
 	var strings = this.options.keywords[ match.keyword ]( match );
 
+	// If transformed result is object, immediately return
+	if ( _.isPlainObject( strings ) ) return strings;
+
 	// Cast strings to single-element array to enable mapping
 	if ( ! ( strings instanceof Array ) ) {
 		strings = [ strings ];

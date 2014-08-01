@@ -27,7 +27,7 @@ it( 'should return array of translatable strings, including comment on previous 
 	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', 'comment': 'greeting' }] );
 });
 
-it( 'should enable developer to provide custom keyword logic', function() {
+it( 'should enable developer to provide custom keyword logic returning a string', function() {
 	var source = '_x( "Hello World!", "greeting" );',
 		parser = new XGettext({
 			keywords: {
@@ -43,7 +43,20 @@ it( 'should enable developer to provide custom keyword logic', function() {
 		matches = parser.getMatches( source );
 
 	expect( matches ).to.deep.equal( [{ 'string': 'greeting\u0004Hello World!' }] );
+});
 
+it( 'should enable developer to provide custom keyword logic returning an object', function() {
+	var source = '_( "Hello World!" );',
+		parser = new XGettext({
+			keywords: {
+				'_': function( match ) {
+					return { isOkay: true };
+				}
+			}
+		}),
+		matches = parser.getMatches( source );
+
+	expect( matches ).to.deep.equal( [{ isOkay: true }] );
 });
 
 it( 'should enable developer to provide custom translator comment prefix', function() {
