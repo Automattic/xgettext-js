@@ -20,25 +20,16 @@ var XGettext = module.exports = function( options ) {
 XGettext.defaultOptions = {
 	/**
 	 * A key-value pair of keyword function names to be mapped into their desired string value.
+	 * Transform functions are passed a match including three keys: `keyword` (the matched keyword),
+	 * `arguments` (a CallExpression arguments array), and `comment` if one exists. It is expected
+	 * that this function will return a string or an array of strings. Alternatively, define value as
+	 * number to return value in that argument position on a 1-based index.
 	 *
 	 * @type {Object}
+ 	 * @see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API
 	 */
 	keywords: {
-		/**
-		 * A transform function which is passed a match including three keys: `keyword` (the
-		 * matched keyword), `arguments` (a CallExpression arguments array), and `comment` if one
-		 * exists. It is expected that this function will return a string or an array of strings
-		 *
-	 	 * @see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API
-		 * @return {Array,String} A transformed string value
-		 */
-		'_': function( match ) {
-			// By default, assume string located in first argument
-			if ( match.arguments.length > 0 &&
-				typeof match.arguments[0].value === 'string' ) {
-				return match.arguments[0].value;
-			}
-		}
+		'_': 1
 	},
 
  	/**
