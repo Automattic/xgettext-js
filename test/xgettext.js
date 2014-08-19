@@ -68,3 +68,15 @@ it( 'should enable developer to provide custom translator comment prefix', funct
 
 	expect( matches ).to.deep.equal( [{ string: 'Hello World!', comment: 'greeting', line: 1 }] );
 });
+
+it( 'should accept a number as keyword value to represent argument position', function() {
+  var source = '_( null, "Hello World!" );',
+    parser = new XGettext({
+      keywords: {
+        '_': 2
+      }
+    }),
+    matches = parser.getMatches( source );
+
+  expect( matches ).to.deep.equal( [{ string: 'Hello World!', line: 1 }] );
+});

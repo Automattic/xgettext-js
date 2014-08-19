@@ -13,6 +13,7 @@ var _ = require( 'lodash' ),
 var XGettext = module.exports = function( options ) {
 	if ( 'object' !== typeof options ) options = {};
 	this.options = _.extend( {}, XGettext.defaultOptions, options );
+	this.options.keywords = this._normalizeKeywords( this.options.keywords );
 	this.options.keywordFunctions = Object.keys( this.options.keywords );
 };
 
@@ -77,6 +78,49 @@ XGettext.prototype.getMatches = function( input ) {
 
 	return transformedMatches;
 }
+
+/**
+ * Returns an object containing keyword functions where number values are replaced with a function
+ * returning the nth argument on a 1-based index
+ *
+ * @private
+ * @return {Object} An object containing keyword functions where number values are replaced with a
+ * function returning the nth argument on a 1-based index
+ * @see https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html
+ */
+XGettext.prototype._normalizeKeywords = function( keywords ) {
+	var normalizedKeywords = {};
+
+	for ( var fn in keywords ) {
+		normalizedKeywords[ fn ] = this._normalizeKeyword( keywords[ fn ] );
+	}
+
+	return normalizedKeywords;
+};
+
+/**
+ * If passed a number, returns a function which returns the nth argument on a 1-based index.
+ * Otherwise, returns the passed argument.
+ *
+ * @param  {Number,Function} keyword A number or function to be normalized
+ * @return {Function} A function to be used in place of the passed argument
+ */
+XGettext.prototype._normalizeKeyword = function( keyword ) {
+	if ( 'number' === typeof keyword ) {
+		return (function( argnum ) {
+			var argumentPosition = argnum - 1;
+
+			return function( match ) {
+				if ( match.arguments.length > argumentPosition &&
+					typeof match.arguments[ argumentPosition ].value === 'string' ) {
+					return match.arguments[ argumentPosition ].value;
+				}
+			};
+		}( keyword ));
+	}
+
+	return keyword;
+};
 
 /**
  * Returns an object containing as AST representation of the input (as `ast`) and any matching
