@@ -80,3 +80,10 @@ it( 'should accept a number as keyword value to represent argument position', fu
 
   expect( matches ).to.deep.equal( [{ string: 'Hello World!', line: 1 }] );
 });
+
+it( 'should match functions that are the last element of a sequence (comma) expression', function() {
+	var source = '(0, transpilerGeneratedName._)("Hello World!")',
+		matches = new XGettext().getMatches( source );
+
+	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', line: 1 }] );
+});
