@@ -165,7 +165,10 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 	traverse( parsedInput.ast, {
 		CallExpression: function( node ) {
 			// Pull the resultingFunction out of (0, resultingFunction)()
-			var callee = ( node.callee.type === 'SequenceExpression' ) ? _.last( node.callee.expressions ) : node.callee;
+			var callee = node.callee;
+			while ( 'SequenceExpression' === callee.type ) {
+				callee = _.last( callee.expressions );
+			}
 			var functionName = ( callee.property ) ? callee.property.name : callee.name;
 
 			// Validate is named function

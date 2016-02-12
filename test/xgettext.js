@@ -87,3 +87,10 @@ it( 'should match functions that are the last element of a sequence (comma) expr
 
 	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', line: 1 }] );
 });
+
+it( 'should match functions that are the last element of a recursive sequence (comma) expression', function() {
+	var source = '(0, (0, transpilerGeneratedName._))("Hello World!")',
+		matches = new XGettext().getMatches( source );
+
+	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', line: 1 }] );
+});
