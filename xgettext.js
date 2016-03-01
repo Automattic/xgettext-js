@@ -15,6 +15,7 @@ var XGettext = module.exports = function( options ) {
 	this.options = _.extend( {}, XGettext.defaultOptions, options );
 	this.options.keywords = this._normalizeKeywords( this.options.keywords );
 	this.options.keywordFunctions = Object.keys( this.options.keywords );
+	this.options.parserOptions = _.extend( {}, options.parserOptions );
 };
 
 XGettext.defaultOptions = {
@@ -123,7 +124,7 @@ XGettext.prototype._normalizeKeyword = function( keyword ) {
  */
 XGettext.prototype._parseInput = function( input ) {
 	var comments = [],
-		parseOptions = { locations: true },
+		parseOptions = _.extend( { locations: true }, this.options.parserOptions ),
 		ast;
 
 	if ( typeof this.options.commentPrefix !== 'undefined' ) {
