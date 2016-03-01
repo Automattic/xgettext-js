@@ -94,3 +94,26 @@ it( 'should match functions that are the last element of a recursive sequence (c
 
 	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', line: 1 }] );
 });
+
+describe( '#parserOptions', function() {
+	it( 'with ecma6, should fail when parserOptions not set', function() {
+		var source = 'const i = 0; _( "Hello World!" );',
+			parser = new XGettext(),
+			fn = function() {
+				parser.getMatches( source );
+			};
+
+			expect( fn ).to.throw(SyntaxError);
+	});
+
+	it( 'with ecma6, should parse successfully when parserOptions set', function() {
+		var source = 'const i = 0; _( "Hello World!" );',
+			matches = new XGettext( {
+				parserOptions: {
+					ecmaVersion: 6
+				}
+			}).getMatches( source );
+
+		expect( matches ).to.deep.equal( [{ string: 'Hello World!', line: 1 }] );
+	});
+});
