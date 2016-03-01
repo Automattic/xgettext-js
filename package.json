@@ -22,7 +22,7 @@
     "test": "make test"
   },
   "dependencies": {
-    "acorn": "^0.6.0",
+    "acorn": "^3.0.4",
     "lodash": "^2.4.1"
   },
   "devDependencies": {

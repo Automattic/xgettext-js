@@ -1,6 +1,6 @@
 var _ = require( 'lodash' ),
 	parser = require( 'acorn' ),
-	traverse = require( 'acorn/util/walk' ).simple;
+	traverse = require( 'acorn/dist/walk' ).simple;
 
 /**
  * XGettext will parse a given input string for any instances of i18n function calls,
