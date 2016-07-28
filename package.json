@@ -22,7 +22,8 @@
     "test": "make test"
   },
   "dependencies": {
-    "acorn": "^3.0.4",
+    "babylon": "^6.8.4",
+    "estree-walker": "0.2.1",
     "lodash": "^4.13.1"
   },
   "devDependencies": {
