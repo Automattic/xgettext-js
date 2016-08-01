@@ -1,7 +1,6 @@
 var _ = require( 'lodash' ),
-	parser = require( 'acorn' ),
-	traverse = require( 'acorn/dist/walk' ).simple;
-
+	parser = require( 'babylon' ),
+	walk = require( 'estree-walker' ).walk;
 /**
  * XGettext will parse a given input string for any instances of i18n function calls,
  * returning an array of objects for all translatable strings discovered.
@@ -15,6 +14,7 @@ var XGettext = module.exports = function( options ) {
 	this.options = _.extend( {}, XGettext.defaultOptions, options );
 	this.options.keywords = this._normalizeKeywords( this.options.keywords );
 	this.options.keywordFunctions = Object.keys( this.options.keywords );
+	this.options.parseOptions = _.extend( { locations: true }, this.options.parseOptions );
 };
 
 XGettext.defaultOptions = {
@@ -26,21 +26,29 @@ XGettext.defaultOptions = {
 	 * number to return value in that argument position on a 1-based index.
 	 *
 	 * @type {Object}
- 	 * @see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API
+	 * @see https://github.com/babel/babylon/blob/master/ast/spec.md
 	 */
 	keywords: {
 		'_': 1
 	},
 
- 	/**
- 	 * Optionally match translator comments to be included with translatable strings.
- 	 *
- 	 * If undesired, set as `undefined`. A comment will be matched if it is prefixed by this option
- 	 * and occurs either on the same or previous line as the matched keyword.
- 	 *
- 	 * @type {String,undefined}
- 	 */
-	commentPrefix: 'translators:'
+	/**
+	 * Optionally match translator comments to be included with translatable strings.
+	 *
+	 * If undesired, set as `undefined`. A comment will be matched if it is prefixed by this option
+	 * and occurs either on the same or previous line as the matched keyword.
+	 *
+	 * @type {String,undefined}
+	 */
+	commentPrefix: 'translators:',
+
+	/**
+	 * Options for the parser. Babylon has some extra ones.
+	 *
+	 * @type {Object}
+	 * @see https://www.npmjs.com/package/babylon
+	 */
+	parseOptions: {},
 };
 
 /**
@@ -123,30 +131,29 @@ XGettext.prototype._normalizeKeyword = function( keyword ) {
  */
 XGettext.prototype._parseInput = function( input ) {
 	var comments = [],
-		parseOptions = { locations: true },
+		parseOptions = this.options.parseOptions,
 		ast;
+
+	ast = parser.parse( input, parseOptions );
 
 	if ( typeof this.options.commentPrefix !== 'undefined' ) {
 		// Optionally locate translator comments
 		var rxCommentMatch = new RegExp( '^\\s*' + this.options.commentPrefix, 'i' );
-
-		parseOptions.onComment = function( block, text, start, end, line ) {
+		ast.comments.forEach( function( comment ) {
+			var text = comment.value;
 			var isTranslatorComment = rxCommentMatch.test( text );
 
 			if ( isTranslatorComment ) {
 				comments.push({
 					value: text.replace( rxCommentMatch, '' ).trim(),
-					line: line
+					line: comment.loc.start
 				});
 			}
-		};
+		} );
 	}
-
-	ast = parser.parse( input, parseOptions );
-
 	return {
 		comments: comments,
-		ast: ast
+		ast: ast.program
 	};
 };
 
@@ -162,8 +169,12 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 	var keywordFunctions = this.options.keywordFunctions,
 		matches = [];
 
-	traverse( parsedInput.ast, {
-		CallExpression: function( node ) {
+	walk( parsedInput.ast, {
+		enter: function( node, parent ) {
+			if ( node.type !== 'CallExpression' ) {
+				return;
+			}
+
 			// Pull the resultingFunction out of (0, resultingFunction)()
 			var callee = node.callee;
 			while ( 'SequenceExpression' === callee.type ) {

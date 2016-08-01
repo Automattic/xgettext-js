@@ -1,6 +1,6 @@
 {
   "name": "xgettext-js",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "author": "Andrew Duthie <andrew@andrewduthie.com>",
   "description": "xgettext string extractor tool capable of parsing JavaScript files",
   "main": "xgettext.js",
@@ -22,7 +22,8 @@
     "test": "make test"
   },
   "dependencies": {
-    "acorn": "^3.0.4",
+    "babylon": "6.8.4",
+    "estree-walker": "0.2.1",
     "lodash": "^4.13.1"
   },
   "devDependencies": {
