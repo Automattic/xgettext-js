@@ -37,6 +37,6 @@ To override the default behavior, you can pass an options object when creating a
 
 ## License
 
-Copyright 2014 Automattic
+Copyright 2016 Automattic
 
 This package is made available under the GPLv2 or later license
