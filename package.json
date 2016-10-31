@@ -1,6 +1,6 @@
 {
   "name": "xgettext-js",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Andrew Duthie <andrew@andrewduthie.com>",
   "description": "xgettext string extractor tool capable of parsing JavaScript files",
   "main": "xgettext.js",
