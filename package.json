@@ -26,6 +26,9 @@
     "test": "npm run lint && mocha",
     "test-watch": "mocha --watch"
   },
+  "engines": {
+    "node": ">=4"
+  },
   "dependencies": {
     "babylon": "^6.8.4",
     "estree-walker": "^0.3.0",
