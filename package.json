@@ -19,7 +19,8 @@
     "url": "https://github.com/automattic/xgettext-js"
   },
   "scripts": {
-    "test": "mocha",
+    "lint": "eslint .",
+    "test": "npm run lint && mocha",
     "test-watch": "mocha --watch"
   },
   "dependencies": {
@@ -29,6 +30,9 @@
   },
   "devDependencies": {
     "chai": "^1.9.1",
+    "eslint": "^3.9.0",
+    "eslint-config-wpcalypso": "^0.6.0",
+    "eslint-plugin-wpcalypso": "^3.0.2",
     "mocha": "^1.21.1"
   }
 }
