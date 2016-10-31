@@ -4,7 +4,9 @@
   "author": "Andrew Duthie <andrew@andrewduthie.com>",
   "description": "xgettext string extractor tool capable of parsing JavaScript files",
   "main": "xgettext.js",
-  "files": "xgettext.js",
+  "files": [
+    "xgettext.js"
+  ],
   "homepage": "https://github.com/automattic/xgettext-js",
   "license": "GPL-2.0+",
   "keywords": [
