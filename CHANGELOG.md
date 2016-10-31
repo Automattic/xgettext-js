@@ -1,6 +1,6 @@
 v1.1.0 (2016-10-31)
 ===================
-- New: `#getMatches()` now returns `column` in the match result
+- New: `#getMatches()` now returns `column` in the match result (#13, props @anoek)
 - General: The project now enforces a Node minimum version of >=4 . This could
 be seen as a breaking change justifying a semver major version bump, but there
 was no previous expectation on the Node version used aside from that inferred 
