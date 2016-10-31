@@ -25,15 +25,15 @@
     "test-watch": "mocha --watch"
   },
   "dependencies": {
-    "babylon": "6.8.4",
-    "estree-walker": "0.2.1",
+    "babylon": "^6.8.4",
+    "estree-walker": "^0.3.0",
     "lodash": "^4.13.1"
   },
   "devDependencies": {
-    "chai": "^1.9.1",
+    "chai": "^3.5.0",
     "eslint": "^3.9.0",
     "eslint-config-wpcalypso": "^0.6.0",
     "eslint-plugin-wpcalypso": "^3.0.2",
-    "mocha": "^1.21.1"
+    "mocha": "^3.1.2"
   }
 }
