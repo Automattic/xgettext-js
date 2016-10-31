@@ -146,8 +146,7 @@ XGettext.prototype._parseInput = function( input ) {
 			if ( isTranslatorComment ) {
 				comments.push({
 					value: text.replace( rxCommentMatch, '' ).trim(),
-					line: comment.loc.start.line,
-					column: comment.loc.start.column
+					line: comment.loc.start.line
 				});
 			}
 		} );
