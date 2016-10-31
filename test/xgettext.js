@@ -10,21 +10,21 @@ it( 'should return array of translatable strings', function() {
 	var source = '_( "Hello World!" );',
 		matches = new XGettext().getMatches( source );
 
-	expect( matches ).to.deep.equal( [{ string: 'Hello World!', line: 1 }] );
+	expect( matches ).to.deep.equal( [{ string: 'Hello World!', line: 1, column: 0 }] );
 });
 
 it( 'should return array of translatable strings, including comment on same line', function() {
 	var source = '_( "Hello World!" ); /* translators: greeting */',
 		matches = new XGettext().getMatches( source );
 
-	expect( matches ).to.deep.equal( [{ string: 'Hello World!', comment: 'greeting', line: 1 }] );
+	expect( matches ).to.deep.equal( [{ string: 'Hello World!', comment: 'greeting', line: 1, column: 0 }] );
 });
 
 it( 'should return array of translatable strings, including comment on previous line', function() {
 	var source = '/* translators: greeting */\n_( "Hello World!" );',
 		matches = new XGettext().getMatches( source );
 
-	expect( matches ).to.deep.equal( [{ string: 'Hello World!', comment: 'greeting', line: 2 }] );
+	expect( matches ).to.deep.equal( [{ string: 'Hello World!', comment: 'greeting', line: 2, column: 0 }] );
 });
 
 it( 'should enable developer to provide custom keyword logic returning a string', function() {
@@ -42,7 +42,7 @@ it( 'should enable developer to provide custom keyword logic returning a string'
 		}),
 		matches = parser.getMatches( source );
 
-	expect( matches ).to.deep.equal( [{ string: 'greeting\u0004Hello World!', line: 1 }] );
+	expect( matches ).to.deep.equal( [{ string: 'greeting\u0004Hello World!', line: 1, column: 0 }] );
 });
 
 it( 'should enable developer to provide custom keyword logic returning an object', function() {
@@ -66,7 +66,7 @@ it( 'should enable developer to provide custom translator comment prefix', funct
 		}),
 		matches = parser.getMatches( source );
 
-	expect( matches ).to.deep.equal( [{ string: 'Hello World!', comment: 'greeting', line: 1 }] );
+	expect( matches ).to.deep.equal( [{ string: 'Hello World!', comment: 'greeting', line: 1, column: 0 }] );
 });
 
 it( 'should accept a number as keyword value to represent argument position', function() {
@@ -78,26 +78,26 @@ it( 'should accept a number as keyword value to represent argument position', fu
     }),
     matches = parser.getMatches( source );
 
-  expect( matches ).to.deep.equal( [{ string: 'Hello World!', line: 1 }] );
+  expect( matches ).to.deep.equal( [{ string: 'Hello World!', line: 1, column: 0 }] );
 });
 
 it( 'should match functions that are the last element of a sequence (comma) expression', function() {
 	var source = '(0, transpilerGeneratedName._)("Hello World!")',
 		matches = new XGettext().getMatches( source );
 
-	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', line: 1 }] );
+	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', line: 1, column: 0 }] );
 });
 
 it( 'should match functions that are the last element of a recursive sequence (comma) expression', function() {
 	var source = '(0, (0, transpilerGeneratedName._))("Hello World!")',
 		matches = new XGettext().getMatches( source );
 
-	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', line: 1 }] );
+	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', line: 1, column: 0 }] );
 });
 
 it( 'should parse ecma6 by default', function() {
 	var source = 'const i = 0; _("Hello World!");',
 		matches = new XGettext().getMatches( source );
 
-	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', line: 1 }] );
+	expect( matches ).to.deep.equal( [{ 'string': 'Hello World!', line: 1, column: 13 }] );
 });

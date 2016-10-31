@@ -146,7 +146,7 @@ XGettext.prototype._parseInput = function( input ) {
 			if ( isTranslatorComment ) {
 				comments.push({
 					value: text.replace( rxCommentMatch, '' ).trim(),
-					line: comment.loc.start
+					line: comment.loc.start.line
 				});
 			}
 		} );
@@ -192,13 +192,14 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 			var match = {
 				arguments: node.arguments,
 				keyword: functionName,
-				line: node.loc.start.line
+				line: node.loc.start.line,
+				column: node.loc.start.column
 			};
 
 			// Find translator comment
 			_.each( parsedInput.comments, function( translatorComment ) {
-				if ( node.loc.start.line === translatorComment.line.line ||
-					node.loc.start.line - 1 === translatorComment.line.line ) {
+				if ( node.loc.start.line === translatorComment.line ||
+					node.loc.start.line - 1 === translatorComment.line ) {
 					match.comment = translatorComment.value;
 				}
 			});
@@ -234,7 +235,7 @@ XGettext.prototype._transformMatch = function( match ) {
 
 	// Transform string back to object with comment
 	strings = _.map(strings, function( string ) {
-		var transformed = { string: string, line: match.line };
+		var transformed = { string: string, line: match.line, column: match.column };
 
 		if ( typeof match.comment !== 'undefined' ) {
 			transformed.comment = match.comment;

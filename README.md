@@ -25,7 +25,7 @@ var XGettext = require( 'xgettext-js' ),
 	parser = new XGettext();
 
 console.log( parser.getMatches( source ) );
-// Will output: [ { "string": "Hello World!", "comment": "greeting", "line": 1 } ]
+// Will output: [ { "string": "Hello World!", "comment": "greeting", "line": 1, "column": 0 } ]
 ```
 
 ## Options
