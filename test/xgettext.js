@@ -101,3 +101,13 @@ it( 'should parse ecma6 by default', function() {
 
 	expect( matches ).to.deep.equal( [ { string: 'Hello World!', line: 1, column: 13 } ] );
 } );
+
+it( 'should handle jsx by default', function() {
+	var source = '<MyComponent translatedProp={ _( "Hello " ) }>{ _( "World!" ) }</MyComponent>',
+		matches = new XGettext().getMatches( source );
+
+	expect( matches ).to.deep.equal( [
+		{ string: 'Hello ', line: 1, column: 30 },
+		{ string: 'World!', line: 1, column: 48 },
+	] );
+} );
