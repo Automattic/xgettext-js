@@ -36,7 +36,7 @@ XGettext.defaultOptions = {
 	 * @see https://github.com/babel/babylon/blob/master/ast/spec.md
 	 */
 	keywords: {
-		_: 1
+		_: 1,
 	},
 
 	/**
@@ -164,7 +164,7 @@ XGettext.prototype._parseInput = function( input ) {
 			if ( isTranslatorComment ) {
 				comments.push( {
 					value: text.replace( rxCommentMatch, '' ).trim(),
-					line: comment.loc.start.line
+					line: comment.loc.start.line,
 				} );
 			}
 		} );
@@ -172,7 +172,7 @@ XGettext.prototype._parseInput = function( input ) {
 
 	return {
 		comments: comments,
-		ast: ast.program
+		ast: ast.program,
 	};
 };
 
@@ -220,7 +220,7 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 				arguments: node.arguments,
 				keyword: functionName,
 				line: node.loc.start.line,
-				column: node.loc.start.column
+				column: node.loc.start.column,
 			};
 
 			// Find translator comment
@@ -232,7 +232,7 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 			} );
 
 			matches.push( match );
-		}
+		},
 	} );
 
 	return matches;

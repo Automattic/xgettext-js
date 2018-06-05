@@ -37,8 +37,8 @@ it( 'should enable developer to provide custom keyword logic returning a string'
 					}
 
 					return match.arguments[ 0 ].value;
-				}
-			}
+				},
+			},
 		} ),
 		matches = parser.getMatches( source );
 
@@ -51,8 +51,8 @@ it( 'should enable developer to provide custom keyword logic returning an object
 			keywords: {
 				_: function() {
 					return { isOkay: true };
-				}
-			}
+				},
+			},
 		} ),
 		matches = parser.getMatches( source );
 
@@ -62,7 +62,7 @@ it( 'should enable developer to provide custom keyword logic returning an object
 it( 'should enable developer to provide custom translator comment prefix', function() {
 	var source = '_( "Hello World!" ); /* note: greeting */',
 		parser = new XGettext( {
-			commentPrefix: 'note:'
+			commentPrefix: 'note:',
 		} ),
 		matches = parser.getMatches( source );
 
@@ -73,8 +73,8 @@ it( 'should accept a number as keyword value to represent argument position', fu
 	var source = '_( null, "Hello World!" );',
 		parser = new XGettext( {
 			keywords: {
-				_: 2
-			}
+				_: 2,
+			},
 		} ),
 		matches = parser.getMatches( source );
 
