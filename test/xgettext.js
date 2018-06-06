@@ -103,7 +103,7 @@ it( 'should parse ecma6 by default', function() {
 } );
 
 it( 'should handle jsx', function() {
-	var source = '<MyComponent translatedProp={ _( "Hello " ) }>{ _( "World!" ) }</MyComponent>',
+	var source = '<><MyComponent translatedProp={ _( "Hello " ) }>{ _( "World!" ) }</MyComponent></>',
 		matches = new XGettext( {
 			parseOptions: {
 				plugins: [ 'jsx' ],
@@ -111,7 +111,7 @@ it( 'should handle jsx', function() {
 		} ).getMatches( source );
 
 	expect( matches ).to.deep.equal( [
-		{ string: 'Hello ', line: 1, column: 30 },
-		{ string: 'World!', line: 1, column: 48 },
+		{ string: 'Hello ', line: 1, column: 32 },
+		{ string: 'World!', line: 1, column: 50 },
 	] );
 } );
