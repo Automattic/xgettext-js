@@ -1,3 +1,8 @@
+v2.0.0 (2018-06-FIXME)
+===================
+- Breaking: Support Node v6 or greater (#16).
+- Updated: Switch parser from deprecated babylon to @babel/parser (#14).
+
 v1.1.0 (2016-10-31)
 ===================
 - New: `#getMatches()` now returns `column` in the match result (#13, props @anoek)
