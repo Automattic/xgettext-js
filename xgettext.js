@@ -1,5 +1,5 @@
 var _ = require( 'lodash' ),
-	parser = require( 'babylon' ),
+	parser = require( '@babel/parser' ),
 	walk = require( 'estree-walker' ).walk;
 
 /**
@@ -55,7 +55,7 @@ XGettext.defaultOptions = {
 	 * Options for the parser. Babylon has some extra ones.
 	 *
 	 * @type {Object}
-	 * @see https://www.npmjs.com/package/babylon
+	 * @see https://www.npmjs.com/package/@babel/parser
 	 */
 	parseOptions: {},
 };

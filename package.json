@@ -30,8 +30,8 @@
     "node": ">=6"
   },
   "dependencies": {
-    "babylon": "^6.8.4",
-    "estree-walker": "^0.3.0",
+    "@babel/parser": "^7.0.0-beta.48",
+    "estree-walker": "^0.5.2",
     "lodash": "^4.13.1"
   },
   "devDependencies": {
