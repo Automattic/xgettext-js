@@ -1,4 +1,4 @@
-v2.0.0 (2018-06-FIXME)
+v2.0.0 (2018-06-07)
 ===================
 - Breaking: Support Node v6 or greater (#16).
 - Updated: Switch parser from deprecated babylon to @babel/parser (#14).
