@@ -1,6 +1,6 @@
 {
   "name": "xgettext-js",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "Andrew Duthie <andrew@andrewduthie.com>",
   "description": "xgettext string extractor tool capable of parsing JavaScript files",
   "main": "xgettext.js",
@@ -27,7 +27,7 @@
     "test-watch": "mocha --watch"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=10"
   },
   "dependencies": {
     "@babel/parser": "^7.0.0-beta.48",
