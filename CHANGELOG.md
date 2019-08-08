@@ -1,3 +1,8 @@
+v3.0.0 (2018-06-07)
+===================
+- Breaking: Support Node v10 or greater (#20).
+- Updated: Lodash dependency from ^4.13.1 to ^4.17.15.
+
 v2.0.0 (2018-06-07)
 ===================
 - Breaking: Support Node v6 or greater (#16).
