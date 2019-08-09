@@ -30,8 +30,8 @@
     "node": ">=10"
   },
   "dependencies": {
-    "@babel/parser": "^7.0.0-beta.48",
-    "estree-walker": "^0.5.2",
+    "@babel/parser": "^7.5.5",
+    "estree-walker": "^0.6.1",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
