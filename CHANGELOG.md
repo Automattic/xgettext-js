@@ -2,6 +2,9 @@ v3.0.0 (2018-06-07)
 ===================
 - Breaking: Support Node v10 or greater (#20).
 - Updated: Lodash dependency from ^4.13.1 to ^4.17.15.
+- Updated: @babel/parser dependency from ^7.0.0-beta.58 to ^7.5.5.
+- Updated: estree-walker dependency from ^0.5.2 to ^0.6.1.
+- Updated: devDependencies
 
 v2.0.0 (2018-06-07)
 ===================

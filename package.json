@@ -30,15 +30,15 @@
     "node": ">=10"
   },
   "dependencies": {
-    "@babel/parser": "^7.0.0-beta.48",
-    "estree-walker": "^0.5.2",
+    "@babel/parser": "^7.5.5",
+    "estree-walker": "^0.6.1",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "eslint": "^4.19.1",
-    "eslint-config-wpcalypso": "^4.0.0",
-    "eslint-plugin-wpcalypso": "^4.0.1",
-    "mocha": "^5.2.0"
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-wpcalypso": "^4.0.1",
+    "eslint-plugin-wpcalypso": "^4.1.0",
+    "mocha": "^6.2.0"
   }
 }
