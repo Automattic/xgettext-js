@@ -219,6 +219,8 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 			var match = {
 				arguments: node.arguments,
 				keyword: functionName,
+				// In GNU Gettext, the line references the line where the
+				// message starts instead of where the keyword starts.
 				line: node.loc.start.line,
 				column: node.loc.start.column,
 			};
