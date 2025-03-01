@@ -163,7 +163,7 @@ XGettext.prototype._parseInput = function( input ) {
 
 			if ( isTranslatorComment ) {
 				comments.push( {
-					value: text.replace( rxCommentMatch, '' ).trim(),
+					value: text.trim(),
 					line: comment.loc.start.line,
 				} );
 			}
