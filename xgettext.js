@@ -229,17 +229,17 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 			// the singular form argument. We don't have that information here
 			// so we search on and before all arguments instead.
 			const commentLines = [];
-			node.arguments.forEach((arg) => {
-				if (!commentLines.includes(arg.loc.start.line - 1)) {
-					commentLines.push(arg.loc.start.line - 1);
+			node.arguments.forEach( ( arg ) => {
+				if ( ! commentLines.includes( arg.loc.start.line - 1 ) ) {
+					commentLines.push( arg.loc.start.line - 1 );
 				}
-				if (!commentLines.includes(arg.loc.start.line)) {
-					commentLines.push(arg.loc.start.line)
+				if ( ! commentLines.includes( arg.loc.start.line ) ) {
+					commentLines.push( arg.loc.start.line );
 				}
-			});
+			} );
 
 			_.each( parsedInput.comments, function( translatorComment ) {
-				if (!commentLines.includes(translatorComment.line)) {
+				if ( ! commentLines.includes( translatorComment.line ) ) {
 					return;
 				}
 
