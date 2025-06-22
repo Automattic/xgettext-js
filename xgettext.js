@@ -163,7 +163,7 @@ XGettext.prototype._parseInput = function( input ) {
 
 			if ( isTranslatorComment ) {
 				comments.push( {
-					value: text.replace( rxCommentMatch, '' ).trim(),
+					value: text.trim(),
 					line: comment.loc.start.line,
 				} );
 			}
@@ -219,16 +219,31 @@ XGettext.prototype._discoverMatches = function( parsedInput ) {
 			var match = {
 				arguments: node.arguments,
 				keyword: functionName,
+				// In GNU Gettext, the line references the line where the
+				// message starts instead of where the keyword starts.
 				line: node.loc.start.line,
 				column: node.loc.start.column,
 			};
 
-			// Find translator comment
-			_.each( parsedInput.comments, function( translatorComment ) {
-				if ( node.loc.start.line === translatorComment.line ||
-					node.loc.start.line - 1 === translatorComment.line ) {
-					match.comment = translatorComment.value;
+			// Find translator comment. GNU Gettext searches only on and before
+			// the singular form argument. We don't have that information here
+			// so we search on and before all arguments instead.
+			const commentLines = [];
+			node.arguments.forEach( ( arg ) => {
+				if ( ! commentLines.includes( arg.loc.start.line - 1 ) ) {
+					commentLines.push( arg.loc.start.line - 1 );
 				}
+				if ( ! commentLines.includes( arg.loc.start.line ) ) {
+					commentLines.push( arg.loc.start.line );
+				}
+			} );
+
+			_.each( parsedInput.comments, function( translatorComment ) {
+				if ( ! commentLines.includes( translatorComment.line ) ) {
+					return;
+				}
+
+				match.comment = translatorComment.value;
 			} );
 
 			matches.push( match );

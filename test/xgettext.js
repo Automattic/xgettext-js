@@ -1,5 +1,7 @@
 var expect = require( 'chai' ).expect,
-	XGettext = require( '../xgettext' );
+	XGettext = require( '../xgettext' ),
+	fs = require( 'fs' ),
+	path = require( 'path' );
 
 it( 'should be instantiable', function() {
 	var parser = new XGettext();
@@ -11,20 +13,6 @@ it( 'should return array of translatable strings', function() {
 		matches = new XGettext().getMatches( source );
 
 	expect( matches ).to.deep.equal( [ { string: 'Hello World!', line: 1, column: 0 } ] );
-} );
-
-it( 'should return array of translatable strings, including comment on same line', function() {
-	var source = '_( "Hello World!" ); /* translators: greeting */',
-		matches = new XGettext().getMatches( source );
-
-	expect( matches ).to.deep.equal( [ { string: 'Hello World!', comment: 'greeting', line: 1, column: 0 } ] );
-} );
-
-it( 'should return array of translatable strings, including comment on previous line', function() {
-	var source = '/* translators: greeting */\n_( "Hello World!" );',
-		matches = new XGettext().getMatches( source );
-
-	expect( matches ).to.deep.equal( [ { string: 'Hello World!', comment: 'greeting', line: 2, column: 0 } ] );
 } );
 
 it( 'should enable developer to provide custom keyword logic returning a string', function() {
@@ -59,6 +47,41 @@ it( 'should enable developer to provide custom keyword logic returning an object
 	expect( matches ).to.deep.equal( [ { isOkay: true } ] );
 } );
 
+it( 'should handle various translator comment styles', function() {
+	var source = fs.readFileSync( path.join( __dirname, 'fixture/comment-styles.js' ), 'utf8' ),
+		parser = new XGettext( {
+			keywords: {
+				_: 1,
+				x: 2,
+				n: 1,
+			},
+		} ),
+		matches = parser.getMatches( source );
+
+	expect( matches ).to.deep.equal( [
+		{ string: 'string1', line: 4, column: 40 },
+		{ string: 'string2', line: 6, column: 43, comment: 'translators: comment before function' },
+		{ string: 'string3', line: 8, column: 0, comment: 'translators: comment after function (unscraped by GNU)' },
+		{ string: 'string4', line: 11, column: 0 },
+		{ string: 'string5', line: 17, column: 0 },
+		{ string: 'string6', line: 19, column: 0, comment: 'translators: comment on line before argument' },
+		{ string: 'string7', line: 24, column: 0, comment: 'translators: comment on line before message argument' },
+		{
+			string: 'string8',
+			line: 30,
+			column: 0,
+			comment: 'translators: comment on line before context argument (unscraped by GNU)',
+		},
+		{ string: 'string9', line: 36, column: 0, comment: 'translators: comment on line of singular argument' },
+		{
+			string: 'string10',
+			line: 41,
+			column: 0,
+			comment: 'translators: comment on line before plural argument (unscraped by GNU)',
+		},
+	] );
+} );
+
 it( 'should enable developer to provide custom translator comment prefix', function() {
 	var source = '_( "Hello World!" ); /* note: greeting */',
 		parser = new XGettext( {
@@ -66,7 +89,7 @@ it( 'should enable developer to provide custom translator comment prefix', funct
 		} ),
 		matches = parser.getMatches( source );
 
-	expect( matches ).to.deep.equal( [ { string: 'Hello World!', comment: 'greeting', line: 1, column: 0 } ] );
+	expect( matches ).to.deep.equal( [ { string: 'Hello World!', comment: 'note: greeting', line: 1, column: 0 } ] );
 } );
 
 it( 'should accept a number as keyword value to represent argument position', function() {
