@@ -40,5 +40,13 @@
     "eslint-config-wpcalypso": "^4.0.1",
     "eslint-plugin-wpcalypso": "^4.1.0",
     "mocha": "^6.2.0"
+  },
+  "overrides": {
+    "debug": "^4.4.3",
+    "diff": "^5.2.0",
+    "flatted": "^3.4.2",
+    "js-yaml": "^3.14.2",
+    "minimatch": "^3.1.5",
+    "tmp": "^0.2.7"
   }
 }
